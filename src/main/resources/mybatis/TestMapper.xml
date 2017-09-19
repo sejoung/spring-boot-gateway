@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.sejoung.api.dao.LoggerFileDao">
+	
+	<insert id="insertAdlinkRcdStatusClick" parameterType="hashmap">
+		INSERT INTO ADLINK_RCD_STATUS
+		(STATS_DTTM,
+		PLTFOM_TP_CODE,
+		ADVRTS_PRDT_CODE,
+		ADVRTS_TP_CODE,
+		SITE_CODE,
+		MEDIA_SCRIPT_NO,
+		ADVRTS_RCMD_TP_CODE,
+		ADVRTS_TP_CODE_DETAIL,
+		TOT_EPRS_CNT,
+		CLICK_CNT,
+		ADVRTS_AMT,
+		REG_USER_ID,
+		REG_DTTM)
+		VALUES
+		(#{yyyymmdd},
+		#{pltfom_tp_code},
+		#{advrts_prdt_code},
+		#{advrts_tp_code},
+		#{site_code},
+		#{media_script_no},
+		#{advrts_rcmd_tp_code},
+		#{advrts_tp_code_detail},
+		#{tot_eprs_cnt},
+		#{click_cnt},
+		#{advrts_amt},
+		'recommend_gateway',
+		now())
+		ON DUPLICATE KEY
+		UPDATE CLICK_CNT = CLICK_CNT+1, ADVRTS_AMT=ADVRTS_AMT+#{advrts_amt}, ALT_USER_ID='recommend_gateway', ALT_DTTM=now()
+	</insert>
+	
+	<insert id="insertAdlinkRcdStatusView" parameterType="hashmap">
+		INSERT INTO ADLINK_RCD_STATUS
+		(STATS_DTTM,
+		PLTFOM_TP_CODE,
+		ADVRTS_PRDT_CODE,
+		ADVRTS_TP_CODE,
+		SITE_CODE,
+		MEDIA_SCRIPT_NO,
+		ADVRTS_RCMD_TP_CODE,
+		ADVRTS_TP_CODE_DETAIL,
+		TOT_EPRS_CNT,
+		CLICK_CNT,
+		ADVRTS_AMT,
+		REG_USER_ID,
+		REG_DTTM)
+		VALUES
+		(#{yyyymmdd},
+		#{pltfom_tp_code},
+		#{advrts_prdt_code},
+		#{advrts_tp_code},
+		#{site_code},
+		#{media_script_no},
+		#{advrts_rcmd_tp_code},
+		#{advrts_tp_code_detail},
+		#{tot_eprs_cnt},
+		#{click_cnt},
+		#{advrts_amt},
+		'recommend_gateway',
+		now())
+		ON DUPLICATE KEY
+		UPDATE TOT_EPRS_CNT = TOT_EPRS_CNT+1., ALT_USER_ID='recommend_gateway', ALT_DTTM=now()
+	</insert>
+ 	
+	
+</mapper>
